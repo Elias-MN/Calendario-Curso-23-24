@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+body{
+  min-width: 200px;
+}
+
 header{
   background: rgb(170, 151, 232);
   display: flex;
@@ -34,3 +38,8 @@ main{
   border: 1px solid rgb(221, 221, 221);
 }
 
+@media (max-width: 335px)  {
+  .day{
+    padding: 5px;
+  }
+}
