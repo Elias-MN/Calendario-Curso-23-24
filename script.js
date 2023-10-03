@@ -28,6 +28,19 @@ function addMonth() {
     daysElement.appendChild(dayElement);
   });
 
+  // INSERTAR HUECOS VACÍOS
+  // Obtenemos el día de la semana para sacar los huecos
+  let gaps = currentDate.getDay();
+  // getDay() del domingo devuelve 0, si lo queremos poner al final, cambiamos esto a mano
+  if (gaps === 0) {
+    gaps = 7;
+  }
+
+  for (let gap = 1; gap < gaps; gap++) {
+    let gapElement = document.createElement("div");
+    daysElement.appendChild(gapElement);
+  }
+
   // INSERTAR DÍAS DEL MES
   //El primer parámetro indica el mes de forma natural -> 1 enero, 2 febrero...
   let numDaysMonth = getDaysInMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
@@ -37,6 +50,8 @@ function addMonth() {
     dayElement.innerText = day;
     daysElement.appendChild(dayElement);
   }
+
+
 
   monthElement.appendChild(daysElement);
   mainElement.appendChild(monthElement);
