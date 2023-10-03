@@ -1,4 +1,4 @@
-let mainElement = document.getElementsByTagName("main");
+let mainElement = document.querySelector('main');
 
 const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
   "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -15,22 +15,43 @@ function addMonth() {
   let titleMonthElement = document.createElement("h4");
   titleMonthElement.innerText = monthNames[monthCounter];
 
+  monthElement.appendChild(titleMonthElement);
+
   let daysElement = document.createElement("div");
   daysElement.classList.toggle("days");
 
-  daysElement = `
-  <div class="day">L</div>
-  <div class="day">M</div>
-  <div class="day">X</div>
-  <div class="day">J</div>
-  <div class="day">V</div>
-  <div class="day">S</div>
-  <div class="day">D</div>`
+  const daysOfWeek = ["L", "M", "X", "J", "V", "S", "D"];
 
-  let numDaysMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+  // INSERTAR PRIMERA FILA: L ... D
+  daysOfWeek.forEach(day => {
+    let dayElement = document.createElement("div");
+    dayElement.classList.add("day");
+    dayElement.innerText = day;
+    daysElement.appendChild(dayElement);
+  });
 
-  console.log(numDaysMonth)
+  let numDaysMonth = getDaysInMonth(2, 2024);
+
+  for (let day = 1; day <= numDaysMonth; day++) {
+    let dayElement = document.createElement("div");
+    dayElement.classList.add("day");
+    dayElement.innerText = day;
+    daysElement.appendChild(dayElement);
+  }
+
+  monthElement.appendChild(daysElement);
+
+  mainElement.appendChild(monthElement);
 
 }
 
-addMonth();
+function getDaysInMonth(month, year) {
+  //El día 0 es el último día del anterior mes
+  return new Date(year, month, 0).getDate();
+}
+
+let monthsOfCalendar = 9;
+for (let index = 0; index <= monthsOfCalendar; index++) {
+  addMonth();
+
+}
