@@ -2,8 +2,9 @@ let mainElement = document.querySelector('main');
 
 const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
   "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+const daysOfWeek = ["L", "M", "X", "J", "V", "S", "D"];
 
-let monthCounter = 8;
+let monthCounter = 9;
 let yearCounter = 2023;
 let currentDate = new Date(`${yearCounter}-${monthCounter}-1`);
 
@@ -13,14 +14,11 @@ function addMonth() {
   monthElement.classList.toggle("month");
 
   let titleMonthElement = document.createElement("h4");
-  titleMonthElement.innerText = monthNames[monthCounter];
-
+  titleMonthElement.innerText = monthNames[monthCounter - 1];
   monthElement.appendChild(titleMonthElement);
 
   let daysElement = document.createElement("div");
   daysElement.classList.toggle("days");
-
-  const daysOfWeek = ["L", "M", "X", "J", "V", "S", "D"];
 
   // INSERTAR PRIMERA FILA: L ... D
   daysOfWeek.forEach(day => {
@@ -30,8 +28,9 @@ function addMonth() {
     daysElement.appendChild(dayElement);
   });
 
-  let numDaysMonth = getDaysInMonth(2, 2024);
-
+  // INSERTAR DÍAS DEL MES
+  //El primer parámetro indica el mes de forma natural -> 1 enero, 2 febrero...
+  let numDaysMonth = getDaysInMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
   for (let day = 1; day <= numDaysMonth; day++) {
     let dayElement = document.createElement("div");
     dayElement.classList.add("day");
@@ -40,9 +39,7 @@ function addMonth() {
   }
 
   monthElement.appendChild(daysElement);
-
   mainElement.appendChild(monthElement);
-
 }
 
 function getDaysInMonth(month, year) {
@@ -53,5 +50,12 @@ function getDaysInMonth(month, year) {
 let monthsOfCalendar = 9;
 for (let index = 0; index <= monthsOfCalendar; index++) {
   addMonth();
-
+  monthCounter++;
+  if (monthCounter === 13) {
+    monthCounter = 1;
+    yearCounter++;
+  }
+  currentDate = new Date(`${yearCounter}-${monthCounter}-1`);
 }
+
+
