@@ -1,5 +1,31 @@
 let mainElement = document.querySelector('main');
 
+let sadButtonElement = document.getElementById("sadButton");
+let regularButtonElement = document.getElementById("regularButton");
+let goodButtonElement = document.getElementById("goodButton");
+
+sadButtonElement.addEventListener('click', () => setPencilColor("Sad"))
+regularButtonElement.addEventListener('click', () => setPencilColor("Regular"))
+goodButtonElement.addEventListener('click', () => setPencilColor("Good"))
+
+let currentColorPencil;
+function setPencilColor(mood) {
+  switch (mood) {
+    case "Good":
+      currentColorPencil = "rgb(78, 199, 78)";
+      break;
+    case "Regular":
+      currentColorPencil = "rgb(240, 197, 55)";
+      break;
+    case "Sad":
+      currentColorPencil = "rgb(233, 47, 47)";
+      break
+  }
+  console.log(currentColorPencil)
+
+}
+
+
 const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
   "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const daysOfWeek = ["L", "M", "X", "J", "V", "S", "D"];
@@ -45,9 +71,24 @@ function addMonth() {
   //El primer parámetro indica el mes de forma natural -> 1 enero, 2 febrero...
   let numDaysMonth = getDaysInMonth(currentDate.getMonth() + 1, currentDate.getFullYear());
   for (let day = 1; day <= numDaysMonth; day++) {
+    //currentDate.setDate(day);
+    //let isWeekend = currentDate.getDay();
+
+    let isWeekend = gaps + day;
+
     let dayElement = document.createElement("div");
     dayElement.classList.add("day");
     dayElement.innerText = day;
+
+    if (isWeekend % 7 == 0 || isWeekend % 7 == 1) {
+      dayElement.classList.toggle("weekend");
+    }
+
+    /*
+    if (isWeekend == 0 || isWeekend == 6) {
+      console.log(`${day} es festivo`)
+    }
+*/
     daysElement.appendChild(dayElement);
   }
 
