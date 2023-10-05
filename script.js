@@ -78,6 +78,7 @@ function addMonth() {
 
     let dayElement = document.createElement("div");
     dayElement.classList.add("day");
+    dayElement.addEventListener('click', setColorDay)
     dayElement.innerText = day;
 
     if (isWeekend % 7 == 0 || isWeekend % 7 == 1) {
@@ -96,6 +97,10 @@ function addMonth() {
 
   monthElement.appendChild(daysElement);
   mainElement.appendChild(monthElement);
+}
+
+function setColorDay(event) {
+  event.target.style.backgroundColor = currentColorPencil;
 }
 
 function getDaysInMonth(month, year) {
